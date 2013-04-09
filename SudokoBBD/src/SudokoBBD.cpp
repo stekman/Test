@@ -6,10 +6,11 @@
 // Description : Hello World in C++, Ansi-style
 //============================================================================
 
-#include <iostream>
-using namespace std;
+#include <igloo/igloo_alt.h>
+
+using namespace igloo;
+
 
 int main() {
-	cout << "!!!Hello World!!!" << endl; // prints !!!Hello World!!!
-	return 0;
+	return TestRunner::RunAllTests();
 }
