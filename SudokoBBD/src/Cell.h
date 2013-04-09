@@ -12,6 +12,7 @@ class Cell {
 private:
 	int x;
 	int y;
+	int value;
 public:
 	Cell(int x, int y);
 	virtual ~Cell();
@@ -19,6 +20,8 @@ public:
 	int GetY() const;
 	void SetX(int x);
 	void SetY(int y);
+	int GetValue() const;
+	void SetValue(int value);
 };
 
 #endif /* CELL_H_ */
