@@ -10,7 +10,13 @@
 
 using namespace igloo;
 
-
-int main() {
-	return TestRunner::RunAllTests();
+int main() 
+{
+#ifdef WIN32
+    VisualStudioResultsOutput VSOutput;
+    TestRunner runner(VSOutput);
+    return runner.Run();
+#else
+    return TestRunner::RunAllTests();
+#endif
 }

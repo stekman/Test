@@ -14,7 +14,7 @@ Describe(A_Cell)
 	It(HasCoordinates)
 	{
 		Cell cell(1,9);
-		Assert::That(cell.GetX(), Equals(1));
+		Assert::That(cell.GetX(), Equals(2));
 		Assert::That(cell.GetY(), Equals(9));
 	}
 
