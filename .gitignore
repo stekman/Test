@@ -5,7 +5,7 @@
 *.opensdf
 *VisualStudio2010.s*
 *.suo
-*.sdf*
+*.sd*
 *.exe
 #ignore thumbnails created by windows
 Thumbs.db
