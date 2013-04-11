@@ -1,5 +1,7 @@
 # git ignore file
 
+.*.sdf*
+._*.sdf*
 *.ipch
 *.sdf
 *.opensdf
