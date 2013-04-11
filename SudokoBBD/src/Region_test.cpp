@@ -13,53 +13,79 @@ using namespace igloo;
 
 Describe(A_Region)
 {
-	It(CanReference9Values)
-	{
-		Region region();
-		for(int i=0;i<9;i++)
-		{
-			Assert::That(!region.isValid());
-			region.add(new Cell(i,i));
-		}
-		Assert::That(region.size(),Equals(9));
-		AssertThrows(std::overflow_error, region.add(new Cell(9,9)));
-	}
+    It(CanReference9Values)
+    {
+        Region region;
+        for(int i=0;i<9;i++)
+        {
+            Assert::That(!region.isValid());
+            region.add(new Cell(i,i));
+        }
+        Assert::That(region.size(),Equals(9));
+        AssertThrows(std::overflow_error, region.add(new Cell(9,9)));
+    }
 
-	It(CanReturnCorrectCell)
-	{
-		Region region();
-		for(int i=0;i<8;i++)
-		{
-			region.add(new Cell(i,i));
-		}
-		Cell* testcell = new Cell(1,2);
-		region.add(testcell);
-		Cell* comparecell = region.getCell(1,2);
-		Assert::That(comparecell==testcell);
-	}
+    It(CanReturnCorrectCell)
+    {
+        Region region;
+        for(int i=0;i<8;i++)
+        {
+            region.add(new Cell(i,i));
+        }
+        Cell* testcell = new Cell(1,2);
+        region.add(testcell);
+        Cell* comparecell = region.getCell(1,2);
+        Assert::That(comparecell==testcell);
+    }
 
-	It(CennotReturnWrongCell)
-	{
-		Region region();
-		for(int i=0;i<8;i++)
-		{
-			region.add(new Cell(i,i));
-		}
-		Cell* testcell = new Cell(1,2);
-		region.add(testcell);
-		Cell* comparecell = region.getCell(1,1);
-		Assert::That(comparecell==nullptr);
-	}
+    It(CannotReturnWrongCell)
+    {
+        Region region;
+        for(int i=1;i<8;i++)
+        {
+            region.add(new Cell(i,i));
+        }
+        Cell* testcell = new Cell(1,2);
+        region.add(testcell);
+        Cell* comparecell = region.getCell(1,5);
+        Assert::That(comparecell==nullptr);
+    }
 
-	It(CannotReturnIfInvalid)
-	{
-		Region region();
-		for(int i=0;i<7;i++)
-		{
-			region.add(new Cell(i,i));
-		}
-		Cell* testcell = new Cell(1,2);
-		region.add(testcell);
-		AssertThrow(std::logic_error, region.getCell(1,2));
-	}
+    It(CannotReturnIfInvalid)
+    {
+        Region region;
+        for(int i=1;i<7;i++)
+        {
+            region.add(new Cell(i,i));
+        }
+        Cell* testcell = new Cell(1,2);
+        region.add(testcell);
+        AssertThrow(std::logic_error, region.getCell(1,2));
+    }
+
+    It(CanListExistingValues)
+    {
+        Region region;
+        for(int i=1;i<8;i++)
+        {
+            Cell* cell = new Cell(i,i);
+            cell->SetValue(i);
+            region.add(cell);
+            Assert::That(Region.getValues(), Contains(i));
+        }
+        Assert::That(Region.getValues(), HasLength(7));
+    }
+
+    It(CanListFreeValues)
+    {
+        Region region;
+        for(int i=1;i<8;i++)
+        {
+            Cell* cell = new Cell(i,i);
+            cell->SetValue(i);
+            region.add(cell);
+            Assert::That(Region.getFreeValues(), Is().Not().Containing(i));
+        }
+        Assert::That(Region.getFreeValues(), HasLength(2));
+    }
 }
