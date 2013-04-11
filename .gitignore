@@ -1,5 +1,5 @@
 # git ignore file
-
+*/VisualStudio2010/*
 .*.sdf*
 ._*.sdf*
 *.ipch
