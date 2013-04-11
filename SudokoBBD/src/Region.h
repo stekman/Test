@@ -11,10 +11,11 @@
 #include "Cell.h"
 #include <list>
 #include <exception>
+#include <memory>
 
 class Region {
 private:
-    std::list<shared_ptr<Cell> > cells;
+    std::list<std::shared_ptr<Cell> > cells;
 public:
     Region();
     virtual ~Region();

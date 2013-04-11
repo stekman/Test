@@ -21,7 +21,6 @@ Describe(A_Region)
             Assert::That(!region.isValid());
             region.add(new Cell(i,i));
         }
-        Assert::That(region.size(),Equals(9));
         AssertThrows(std::overflow_error, region.add(new Cell(9,9)));
     }
 
@@ -60,7 +59,7 @@ Describe(A_Region)
         }
         Cell* testcell = new Cell(1,2);
         region.add(testcell);
-        AssertThrow(std::logic_error, region.getCell(1,2));
+        AssertThrows(std::logic_error, region.getCell(1,2));
     }
 
     It(CanListExistingValues)
@@ -71,9 +70,9 @@ Describe(A_Region)
             Cell* cell = new Cell(i,i);
             cell->SetValue(i);
             region.add(cell);
-            Assert::That(Region.getValues(), Contains(i));
+            Assert::That(region.getValues(), Contains(i));
         }
-        Assert::That(Region.getValues(), HasLength(7));
+        Assert::That(region.getValues(), HasLength(7));
     }
 
     It(CanListFreeValues)
@@ -84,8 +83,8 @@ Describe(A_Region)
             Cell* cell = new Cell(i,i);
             cell->SetValue(i);
             region.add(cell);
-            Assert::That(Region.getFreeValues(), Is().Not().Containing(i));
+            Assert::That(region.getFreeValues(), Is().Not().Containing(i));
         }
-        Assert::That(Region.getFreeValues(), HasLength(2));
+        Assert::That(region.getFreeValues(), HasLength(2));
     }
 }

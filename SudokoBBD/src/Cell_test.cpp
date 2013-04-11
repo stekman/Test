@@ -8,6 +8,7 @@
 #include "Cell.h"
 #include "Region.h"
 #include "igloo/igloo_alt.h"
+
 using namespace igloo;
 
 Describe(A_Cell)
