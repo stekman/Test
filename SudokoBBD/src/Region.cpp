@@ -32,7 +32,8 @@ Region& Region::add(Cell* cell)
         throw std::out_of_range;
     if(cell->GetValue()!=0 & hasValue(cell->GetValue()))
         throw std::logic_error;
-    cells.push_back(cell);
+    auto shared = std::make_shared<Cell>(cell);
+    cells.push_back(shared);
     return *this;
 }
 
