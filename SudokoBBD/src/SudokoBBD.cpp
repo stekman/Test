@@ -6,7 +6,7 @@
 // Description : Hello World in C++, Ansi-style
 //============================================================================
 
-#include <igloo/igloo_alt.h>
+#include "igloo/igloo_alt.h"
 
 using namespace igloo;
 
