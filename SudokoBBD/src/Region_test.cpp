@@ -87,4 +87,4 @@ Describe(A_Region)
         }
         Assert::That(region.getFreeValues(), HasLength(2));
     }
-}
+};

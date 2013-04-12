@@ -43,7 +43,3 @@ Describe(A_Cell)
 	}
 };
 
-Describe(A_Region)
-{
-
-}
