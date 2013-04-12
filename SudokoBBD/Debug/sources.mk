@@ -24,7 +24,7 @@ C_UPPER_DEPS :=
 # Every subdirectory with source files must be described here
 SUBDIRS := \
 src \
-dependencies/igloo/tests \
+dependencies/igloo-master/tests \
 dependencies/hippomocks/injector \
 dependencies/hippomocks/HippoMocksTest \
 

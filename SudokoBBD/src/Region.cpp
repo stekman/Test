@@ -24,15 +24,15 @@ bool Region::isValid() const
     return cells.size()==9;
 }
 
-Region& Region::add(Cell* cell)
+Region& Region::add(Cell* cell) throw (std::logic_error, std::out_of_range, std::overflow_error)
 {
     if(isValid())
-        throw std::overflow_error;
+        throw std::overflow_error("Region is already full");
     if(getCell(cell->GetX(), cell->GetY())!=nullptr)
-        throw std::out_of_range;
-    if(cell->GetValue()!=0 & hasValue(cell->GetValue()))
-        throw std::logic_error;
-    auto shared = std::make_shared<Cell>(cell);
+        throw std::out_of_range("A cell already has this position");
+    if(cell->GetValue()!=0 && hasValue(cell->GetValue()))
+        throw std::logic_error("A cell already has this value in the region");
+    std::shared_ptr<Cell> shared(cell);
     cells.push_back(shared);
     return *this;
 }
@@ -42,7 +42,7 @@ Cell* Region::getCell(int x, int y) const
     for(auto li=cells.cbegin(); li!=cells.cend(); ++li)
     {
         if(x==(*li)->GetX()&&y==(*li)->GetY())
-            return li;
+            return li->get();
     }
     return nullptr;
 }

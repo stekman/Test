@@ -11,6 +11,7 @@
 #include "Cell.h"
 #include <list>
 #include <exception>
+#include <stdexcept>
 #include <memory>
 
 class Region {

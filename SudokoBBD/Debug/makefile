@@ -9,7 +9,7 @@ RM := rm -rf
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include src/subdir.mk
--include dependencies/igloo/tests/subdir.mk
+-include dependencies/igloo-master/tests/subdir.mk
 -include dependencies/hippomocks/injector/subdir.mk
 -include dependencies/hippomocks/HippoMocksTest/subdir.mk
 -include subdir.mk
