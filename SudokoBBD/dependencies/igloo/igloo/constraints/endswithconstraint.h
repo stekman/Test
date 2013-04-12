@@ -8,6 +8,7 @@
 #define IGLOO_ENDSWITHCONSTRAINT_H
 
 #include <igloo/constraints/expressions/expression.h>
+#include <stddef.h>
 
 namespace igloo {
 

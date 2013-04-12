@@ -8,7 +8,7 @@
 #include <exception>
 #include "Region.h"
 #include "Cell.h"
-#include "igloo/igloo_alt.h"
+#include "../dependencies/igloo/igloo/igloo_alt.h"
 using namespace igloo;
 
 Describe(A_Region)

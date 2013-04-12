@@ -16,6 +16,7 @@ private:
 public:
 	Cell(int x, int y);
 	virtual ~Cell();
+
 	int GetX() const;
 	int GetY() const;
 	void SetX(int x);

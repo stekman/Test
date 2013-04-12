@@ -7,7 +7,7 @@
 
 #include "Cell.h"
 #include "Region.h"
-#include "igloo/igloo_alt.h"
+#include "../dependencies/igloo/igloo/igloo_alt.h"
 
 using namespace igloo;
 
