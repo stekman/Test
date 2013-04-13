@@ -7,22 +7,33 @@
 
 #ifndef CELL_H_
 #define CELL_H_
+#include <list>
+#include <stdexcept>
+
+using std::list;
+
+class Region;
 
 class Cell {
 private:
 	int x;
 	int y;
 	int value;
+	std::list<Region*> regions;
 public:
-	Cell(int x, int y);
+	Cell(int x, int y, int value = 0);
 	virtual ~Cell();
 
 	int GetX() const;
 	int GetY() const;
-	void SetX(int x);
-	void SetY(int y);
 	int GetValue() const;
-	void SetValue(int value);
+	void SetValue(int value) throw (std::logic_error);
+	bool isValid() const;
+	void addRegion(Region* region);
+	void deleteRegion(Region* region);
+	int countRegions() const;
+	list<int> GetFreeValues() const;
+	bool isSolvable() const;
 };
 
 #endif /* CELL_H_ */

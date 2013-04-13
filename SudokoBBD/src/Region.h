@@ -14,18 +14,26 @@
 #include <stdexcept>
 #include <memory>
 
+class Cell;
+
 class Region {
-private:
-    std::list<std::shared_ptr<Cell> > cells;
 public:
-    Region();
+	typedef enum {horizontal, vertical, area, undefined } Type;
+private:
+    std::list<Cell*> cells;
+    Type type;
+    int position;
+public:
+    Region(Type type=undefined, int pos=0);
     virtual ~Region();
     bool isValid() const;
     Region& add(Cell* cell) throw (std::logic_error, std::out_of_range, std::overflow_error);
     Cell* getCell(int x, int y) const;
     bool hasValue(int i) const;
     std::list<int> getValues() const;
-    std::list<int> getFreeValues() const;
+    std::list<int> GetFreeValues() const;
+	int getPosition() const;
+	Type getType() const;
 };
 
 #endif /* REGION_H_ */

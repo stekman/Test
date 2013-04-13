@@ -10,13 +10,16 @@
 #include "Region.h"
 
 
-Region::Region() {
-    // TODO Auto-generated constructor stub
-
-}
+Region::Region(Type type, int position) : type(type), position(position)
+{}
 
 Region::~Region() {
-    // TODO Auto-generated destructor stub
+    for(auto cell: cells)
+    {
+    	cell->deleteRegion(this);
+    	if(cell->countRegions()==0)
+    		delete cell;
+    }
 }
 
 bool Region::isValid() const
@@ -28,38 +31,53 @@ Region& Region::add(Cell* cell) throw (std::logic_error, std::out_of_range, std:
 {
     if(isValid())
         throw std::overflow_error("Region is already full");
-    if(getCell(cell->GetX(), cell->GetY())!=nullptr)
+    try
+    {
+    	getCell(cell->GetX(), cell->GetY());
         throw std::out_of_range("A cell already has this position");
+    }
+    catch (std::logic_error& e)
+    { }
     if(cell->GetValue()!=0 && hasValue(cell->GetValue()))
         throw std::logic_error("A cell already has this value in the region");
-    std::shared_ptr<Cell> shared(cell);
-    cells.push_back(shared);
+    cell->addRegion(this);;
+    cells.push_back(cell);
     return *this;
 }
 
 Cell* Region::getCell(int x, int y) const
 {
-    for(auto li=cells.cbegin(); li!=cells.cend(); ++li)
+    for(auto cell:cells)
     {
-        if(x==(*li)->GetX()&&y==(*li)->GetY())
-            return li->get();
+        if(x==cell->GetX()&&y==cell->GetY())
+            return cell;
     }
-    return nullptr;
+    throw std::logic_error("Cell does not exist");
 }
 
 std::list<int> Region::getValues() const
 {
     std::list<int> values;
-    for(auto cell = cells.cbegin(); cell!=cells.cend(); cell++)
+    for(auto cell :cells)
     {
-        if((*cell)->GetValue()!=0)
-            values.push_back((*cell)->GetValue());
+        if(cell->GetValue()!=0)
+            values.push_back(cell->GetValue());
     }
     values.sort();
     return values;
 }
 
-std::list<int> Region::getFreeValues() const
+int Region::getPosition() const
+{
+	return position;
+}
+
+Region::Type Region::getType() const
+{
+	return type;
+}
+
+std::list<int> Region::GetFreeValues() const
 {
     std::list<int> free;
     for(int value=1; value<=9; value++)
@@ -69,14 +87,15 @@ std::list<int> Region::getFreeValues() const
             free.push_back(value);
         }
     }
+    free.sort();
     return free;
 }
 
 bool Region::hasValue( int i ) const
 {
-    for(auto cell = cells.cbegin(); cell!=cells.cend(); cell++)
+    for(auto cell : cells)
     {
-        if((*cell)->GetValue() == i)
+        if(cell->GetValue() == i)
             return true;
     }
     return false;

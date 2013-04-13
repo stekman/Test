@@ -45,10 +45,7 @@ Describe(A_Region)
         {
             region.add(new Cell(i,i));
         }
-        Cell* testcell = new Cell(1,2);
-        region.add(testcell);
-        Cell* comparecell = region.getCell(1,5);
-        Assert::That(comparecell==nullptr);
+        AssertThrows(std::logic_error, region.getCell(1,5));
     }
 
     It(CannotReturnIfInvalid)
@@ -58,8 +55,6 @@ Describe(A_Region)
         {
             region.add(new Cell(i,i));
         }
-        Cell* testcell = new Cell(1,2);
-        region.add(testcell);
         AssertThrows(std::logic_error, region.getCell(1,2));
     }
 
@@ -84,8 +79,28 @@ Describe(A_Region)
             Cell* cell = new Cell(i,i);
             cell->SetValue(i);
             region.add(cell);
-            Assert::That(region.getFreeValues(), Is().Not().Containing(i));
+            Assert::That(region.GetFreeValues(), Is().Not().Containing(i));
         }
-        Assert::That(region.getFreeValues(), HasLength(2));
+        Assert::That(region.GetFreeValues(), HasLength(2));
+    }
+
+    It(CanCheckIfItHasAValue)
+    {
+    	Region region;
+        for(int i=1;i<8;i++)
+        {
+            Cell* cell = new Cell(i,i);
+            cell->SetValue(i);
+            region.add(cell);
+        }
+        Assert::That(region.hasValue(1) );
+        Assert::That(not region.hasValue(8));
+    }
+
+    It(HasATypeAndPosition)
+    {
+    	Region region(Region::horizontal,1);
+    	Assert::That(region.getType(), Equals(Region::horizontal));
+    	Assert::That(region.getPosition(), Equals(1));
     }
 };

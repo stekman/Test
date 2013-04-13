@@ -4,6 +4,8 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
+../src/Board.cpp \
+../src/Board_test.cpp \
 ../src/Cell.cpp \
 ../src/Cell_test.cpp \
 ../src/Region.cpp \
@@ -11,6 +13,8 @@ CPP_SRCS += \
 ../src/SudokoBBD.cpp 
 
 OBJS += \
+./src/Board.o \
+./src/Board_test.o \
 ./src/Cell.o \
 ./src/Cell_test.o \
 ./src/Region.o \
@@ -18,6 +22,8 @@ OBJS += \
 ./src/SudokoBBD.o 
 
 CPP_DEPS += \
+./src/Board.d \
+./src/Board_test.d \
 ./src/Cell.d \
 ./src/Cell_test.d \
 ./src/Region.d \
