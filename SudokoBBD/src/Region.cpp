@@ -7,6 +7,7 @@
 
 #include <exception>
 #include <list>
+#include <string>
 #include "Region.h"
 
 
@@ -30,16 +31,18 @@ bool Region::isValid() const
 Region& Region::add(Cell* cell) throw (std::logic_error, std::out_of_range, std::overflow_error)
 {
     if(isValid())
-        throw std::overflow_error("Region is already full");
+        throw std::overflow_error("Region is already full: "+std::string(*cell));
     try
     {
     	getCell(cell->GetX(), cell->GetY());
-        throw std::out_of_range("A cell already has this position");
+        throw std::out_of_range("A cell already has this position: "+std::string(*cell));
     }
     catch (std::logic_error& e)
     { }
     if(cell->GetValue()!=0 && hasValue(cell->GetValue()))
-        throw std::logic_error("A cell already has this value in the region");
+    {
+    	throw std::logic_error("A cell already has this value in the region: "+std::string(*cell));
+    }
     cell->addRegion(this);;
     cells.push_back(cell);
     return *this;

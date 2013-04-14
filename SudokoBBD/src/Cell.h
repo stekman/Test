@@ -9,6 +9,7 @@
 #define CELL_H_
 #include <list>
 #include <stdexcept>
+#include <string>
 
 using std::list;
 
@@ -34,6 +35,7 @@ public:
 	int countRegions() const;
 	list<int> GetFreeValues() const;
 	bool isSolvable() const;
+	explicit operator std::string() const;
 };
 
 #endif /* CELL_H_ */
