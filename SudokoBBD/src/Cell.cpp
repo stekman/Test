@@ -9,6 +9,7 @@
 #include "Region.h"
 #include <algorithm>
 #include <iostream>
+#include <sstream>
 
 Cell::Cell(int x, int y, int value): x(x), y(y)
 {
@@ -29,9 +30,10 @@ int Cell::GetValue() const {
 
 void Cell::SetValue(int value) throw (std::logic_error)
 {
-	for(auto region: regions)
-		if(region->hasValue(value))
-			throw std::logic_error("A cell in the region already has value");
+	if(value!=0)
+		for(auto region: regions)
+			if(region->hasValue(value))
+				throw std::logic_error("A cell in the region already has value");
 	this->value = value;
 }
 
@@ -83,7 +85,15 @@ list<int> Cell::GetFreeValues() const
 	return free;
 }
 
+
 bool Cell::isSolvable() const
 {
 	return GetFreeValues().size()!=0;
+}
+
+Cell::operator std::string() const
+{
+	std::stringstream result;
+	result << "Cell (" << x << ", " << y << ") = " << value;
+	return result.str();
 }
