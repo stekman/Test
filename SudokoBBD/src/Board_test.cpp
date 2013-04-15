@@ -189,4 +189,26 @@ Describe(A_Board)
 		board.solve();
 		Assert::That(board.isSolved());
 	}
+
+	It(CanCloneItself)
+	{
+		int boardvalues[9][9] =
+			{
+			 {0,0,9, 2,0,0, 0,0,8},
+			 {6,2,0, 0,0,0, 0,0,0},
+			 {0,0,7, 4,0,6, 1,0,0},
+
+			 {0,0,0, 0,0,7, 0,4,0},
+			 {1,8,0, 0,0,0, 7,0,9},
+			 {0,7,0, 8,0,0, 0,0,0},
+
+			 {0,0,2, 1,0,3,	9,0,0},
+			 {0,0,0, 0,0,0, 0,5,1},
+			 {7,0,0, 0,0,8,	3,0,0}
+			};
+		Board board(boardvalues);
+		Board clone(board);
+		Assert::That(clone==board);
+		Assert::That(std::string(clone), Equals(std::string(board)));
+	}
 };

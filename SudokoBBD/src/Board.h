@@ -22,6 +22,7 @@ private:
 public:
 	Board();
 	Board(const Board& board);
+	Board(int values[9][9]);
 	virtual ~Board();
 	Board& add(Region* region) throw (std::overflow_error);
 	Board& add(Cell* cell) throw (std::overflow_error);

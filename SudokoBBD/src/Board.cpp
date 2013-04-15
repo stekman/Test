@@ -12,8 +12,11 @@
 
 Board::Board()
 {
-	// TODO Auto-generated constructor stub
+}
 
+Board::Board(int values[9][9])
+{
+	setup(values);
 }
 
 Board::~Board()

@@ -32,20 +32,27 @@ Region& Region::add(Cell* cell) throw (std::logic_error, std::out_of_range, std:
 {
     if(isValid())
         throw std::overflow_error("Region is already full: "+std::string(*cell));
-    try
-    {
-    	getCell(cell->getX(), cell->getY());
-        throw std::out_of_range("A cell already has this position: "+std::string(*cell));
-    }
-    catch (std::logic_error& e)
-    { }
+    	if(isCell(cell->getX(), cell->getY()))
+    			throw std::out_of_range("A cell already has this position: "+std::string(*cell));
     if(cell->getValue()!=0 && hasValue(cell->getValue()))
     {
     	throw std::logic_error("A cell already has this value in the region: "+std::string(*cell));
     }
     cell->addRegion(this);;
     cells.push_back(cell);
+    subscribe(cell);
+    onChange();
     return *this;
+}
+
+bool Region::isCell(int x, int y) const
+{
+    for(auto cell:cells)
+    {
+        if(x==cell->getX()&&y==cell->getY())
+            return true;
+    }
+    return false;
 }
 
 Cell* Region::getCell(int x, int y) const
@@ -82,7 +89,25 @@ Region::Type Region::getType() const
 
 std::list<int> Region::getFreeValues() const
 {
-    std::list<int> free;
+	if(getState()==VALID)
+		return free;
+	makeValid();
+	return free;
+}
+
+bool Region::hasValue(int i) const
+{
+    for(auto cell : cells)
+    {
+        if(cell->getValue() == i)
+            return true;
+    }
+    return false;
+}
+
+void Region::doMakeValid() const
+{
+	free.clear();
     for(int value=1; value<=9; value++)
     {
         if(!hasValue(value))
@@ -91,15 +116,4 @@ std::list<int> Region::getFreeValues() const
         }
     }
     free.sort();
-    return free;
-}
-
-bool Region::hasValue( int i ) const
-{
-    for(auto cell : cells)
-    {
-        if(cell->getValue() == i)
-            return true;
-    }
-    return false;
 }

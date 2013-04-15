@@ -34,10 +34,8 @@ Describe(A_Cell)
 		Region r1, r2, r3, r4;
 		Cell* cell=new Cell(1,1);
 		r1.add(cell);
-		Assert::That(!cell->isValid());
 		r2.add(cell);
 		r3.add(cell);
-		Assert::That(cell->isValid());
 		AssertThrows(std::out_of_range, r4.add(cell));
 	}
 
