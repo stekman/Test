@@ -34,7 +34,7 @@ Board& Board::add(Cell* cell) throw (std::overflow_error)
 	if(cells.size()>=9*9)
 		throw std::overflow_error("Too many cells");
 	cells.push_back(cell);
-	auto regionsForCell=GetRegions(cell->GetX() ,cell->GetY());
+	auto regionsForCell=GetRegions(cell->getX() ,cell->getY());
 	for(auto region: regionsForCell)
 		region->add(cell);
 	return *this;
@@ -75,11 +75,11 @@ std::list<Region*> Board::GetRegions() const
 	return regions;
 }
 
-Cell* Board::GetCell(int x, int y) const throw (std::logic_error)
+Cell* Board::getCell(int x, int y) const throw (std::logic_error)
 {
 	for(auto cell: cells)
 	{
-		if(cell->GetX()==x and cell->GetY()==y)
+		if(cell->getX()==x and cell->getY()==y)
 			return cell;
 	}
 	throw std::logic_error("Invalid cell");
@@ -90,7 +90,7 @@ Board::Board(const Board& board)
 	setup();
 	for(auto cell : board.cells)
 	{
-		GetCell(cell->GetX(),cell->GetY())->SetValue(cell->GetValue());
+		getCell(cell->getX(),cell->getY())->setValue(cell->getValue());
 	}
 }
 
@@ -109,12 +109,12 @@ bool Board::solve()
 			changed=false;
 			for(auto cell : cells)
 			{
-				if(cell->GetValue()==0)
+				if(cell->getValue()==0)
 				{
-					auto possible = cell->GetFreeValues();
+					auto possible = cell->getFreeValues();
 					if(possible.size()==1)
 					{
-						cell->SetValue(*possible.begin());
+						cell->setValue(*possible.begin());
 						changed = true;
 					}
 				}
@@ -126,19 +126,19 @@ bool Board::solve()
 		unsigned int bestpossible=10;
 		for(Cell* cell : cells)
 		{
-			if(cell->GetValue()==0 and cell->GetFreeValues().size()<bestpossible)
+			if(cell->getValue()==0 and cell->getFreeValues().size()<bestpossible)
 			{
 				best=cell;
-				bestpossible=cell->GetFreeValues().size();
+				bestpossible=cell->getFreeValues().size();
 			}
 		}
-		for(int value: best->GetFreeValues())
+		for(int value: best->getFreeValues())
 		{
 			Board subBoard(*this);
-			subBoard.GetCell(best->GetX(),best->GetY())->SetValue(value);
+			subBoard.getCell(best->getX(),best->getY())->setValue(value);
 			if(subBoard.solve())
 			{
-				GetCell(best->GetX(),best->GetY())->SetValue(value);
+				getCell(best->getX(),best->getY())->setValue(value);
 				changed=true;
 				break;
 			}
@@ -152,7 +152,7 @@ bool Board::isSolved() const
 {
 	for(int x=1;x<=9;x++)
 		for(int y=1;y<=9; y++)
-			if(GetCell(x,y)->GetValue()==0)
+			if(getCell(x,y)->getValue()==0)
 				return false;
 	return true;
 }
@@ -165,7 +165,7 @@ bool Board::operator ==(const Board other) const
 			firstBoardCell!=cells.cend()&&otherBoardCell!=other.cells.cend();
 			firstBoardCell++, otherBoardCell++)
 		{
-			if((*firstBoardCell)->GetValue()!=(*otherBoardCell)->GetValue())
+			if((*firstBoardCell)->getValue()!=(*otherBoardCell)->getValue())
 			{
 				result = false;
 				break;
@@ -179,7 +179,7 @@ bool Board::operator ==(const Board other) const
 bool Board::isUnsolvable() const
 {
 	for(auto cell: cells)
-		if(cell->GetValue()==0 and not cell->isSolvable())
+		if(cell->getValue()==0 and not cell->isSolvable())
 			return true;
 	return false;
 }
@@ -190,9 +190,9 @@ Board::operator std::string() const
 	result << "{";
 	for(int x=1; x<=9;x++)
 	{
-		result << "{" << GetCell(x,1)->GetValue();
+		result << "{" << getCell(x,1)->getValue();
 		for(int y=2; y<=9;y++)
-			result << "," << GetCell(x,y)->GetValue();
+			result << "," << getCell(x,y)->getValue();
 		result << "}" << std::endl;
 	}
 	result << "}" << std::endl;

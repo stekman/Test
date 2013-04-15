@@ -25,15 +25,15 @@ public:
 	Cell(int x, int y, int value = 0);
 	virtual ~Cell();
 
-	int GetX() const;
-	int GetY() const;
-	int GetValue() const;
-	void SetValue(int value) throw (std::logic_error);
+	int getX() const;
+	int getY() const;
+	int getValue() const;
+	void setValue(int value) throw (std::logic_error);
 	bool isValid() const;
 	void addRegion(Region* region);
 	void deleteRegion(Region* region);
 	int countRegions() const;
-	list<int> GetFreeValues() const;
+	list<int> getFreeValues() const;
 	bool isSolvable() const;
 	explicit operator std::string() const;
 };

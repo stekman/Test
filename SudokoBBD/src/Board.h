@@ -28,7 +28,7 @@ public:
 	Board& setup(int start[9][9]=nullptr);
 	std::list<Region*> GetRegions(int x, int y) const;
 	std::list<Region*> GetRegions() const;
-	Cell* GetCell(int x, int y) const throw (std::logic_error) ;
+	Cell* getCell(int x, int y) const throw (std::logic_error) ;
 	bool solve();
 	bool isSolved() const;
 	bool isUnsolvable() const;

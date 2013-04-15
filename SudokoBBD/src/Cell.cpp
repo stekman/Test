@@ -13,22 +13,22 @@
 
 Cell::Cell(int x, int y, int value): x(x), y(y)
 {
-	SetValue(value);
+	setValue(value);
 }
 
 Cell::~Cell() {
 	// TODO Auto-generated destructor stub
 }
 
-int Cell::GetX() const {
+int Cell::getX() const {
 	return x;
 }
 
-int Cell::GetValue() const {
+int Cell::getValue() const {
 	return value;
 }
 
-void Cell::SetValue(int value) throw (std::logic_error)
+void Cell::setValue(int value) throw (std::logic_error)
 {
 	if(value!=0)
 		for(auto region: regions)
@@ -37,7 +37,7 @@ void Cell::SetValue(int value) throw (std::logic_error)
 	this->value = value;
 }
 
-int Cell::GetY() const {
+int Cell::getY() const {
 	return y;
 }
 
@@ -68,7 +68,7 @@ int Cell::countRegions() const
 	return regions.size();
 }
 
-list<int> Cell::GetFreeValues() const
+list<int> Cell::getFreeValues() const
 {
 	list<int> free;
 	auto region = regions.cbegin();
@@ -88,7 +88,7 @@ list<int> Cell::GetFreeValues() const
 
 bool Cell::isSolvable() const
 {
-	return GetFreeValues().size()!=0;
+	return getFreeValues().size()!=0;
 }
 
 Cell::operator std::string() const

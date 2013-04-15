@@ -34,12 +34,12 @@ Region& Region::add(Cell* cell) throw (std::logic_error, std::out_of_range, std:
         throw std::overflow_error("Region is already full: "+std::string(*cell));
     try
     {
-    	getCell(cell->GetX(), cell->GetY());
+    	getCell(cell->getX(), cell->getY());
         throw std::out_of_range("A cell already has this position: "+std::string(*cell));
     }
     catch (std::logic_error& e)
     { }
-    if(cell->GetValue()!=0 && hasValue(cell->GetValue()))
+    if(cell->getValue()!=0 && hasValue(cell->getValue()))
     {
     	throw std::logic_error("A cell already has this value in the region: "+std::string(*cell));
     }
@@ -52,7 +52,7 @@ Cell* Region::getCell(int x, int y) const
 {
     for(auto cell:cells)
     {
-        if(x==cell->GetX()&&y==cell->GetY())
+        if(x==cell->getX()&&y==cell->getY())
             return cell;
     }
     throw std::logic_error("Cell does not exist");
@@ -63,8 +63,8 @@ std::list<int> Region::getValues() const
     std::list<int> values;
     for(auto cell :cells)
     {
-        if(cell->GetValue()!=0)
-            values.push_back(cell->GetValue());
+        if(cell->getValue()!=0)
+            values.push_back(cell->getValue());
     }
     values.sort();
     return values;
@@ -98,7 +98,7 @@ bool Region::hasValue( int i ) const
 {
     for(auto cell : cells)
     {
-        if(cell->GetValue() == i)
+        if(cell->getValue() == i)
             return true;
     }
     return false;

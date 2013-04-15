@@ -58,17 +58,17 @@ Describe(A_Board)
 	{
 		Board board;
 		board.setup();
-		Cell* cell = board.GetCell(5,5);
-		cell->SetValue(5);
-		Cell* testCell = board.GetCell(5,5);
-		Assert::That(testCell->GetValue(), Equals(5));
+		Cell* cell = board.getCell(5,5);
+		cell->setValue(5);
+		Cell* testCell = board.getCell(5,5);
+		Assert::That(testCell->getValue(), Equals(5));
 	}
 
 	It(CannotGetCellsFromWrongCoordinates)
 	{
 		Board board;
 		board.setup();
-		AssertThrows(std::logic_error, board.GetCell(10,10));
+		AssertThrows(std::logic_error, board.getCell(10,10));
 	}
 
 	It(CanCheckIfACellHasAPossibleValue)
@@ -85,8 +85,8 @@ Describe(A_Board)
                 {2,4,8,9,5,7,0,3,6},
                 {7,6,3,4,1,8,2,5,9}};
 		board.setup(boardvalues);
-		Cell* testcell= board.GetCell(8,7);
-		Assert::That(testcell->GetValue(), Equals(0));
+		Cell* testcell= board.getCell(8,7);
+		Assert::That(testcell->getValue(), Equals(0));
 		Assert::That(testcell->isSolvable());
 	}
 

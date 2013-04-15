@@ -64,7 +64,7 @@ Describe(A_Region)
         for(int i=1;i<8;i++)
         {
             Cell* cell = new Cell(i,i);
-            cell->SetValue(i);
+            cell->setValue(i);
             region.add(cell);
             Assert::That(region.getValues(), Contains(i));
         }
@@ -77,7 +77,7 @@ Describe(A_Region)
         for(int i=1;i<8;i++)
         {
             Cell* cell = new Cell(i,i);
-            cell->SetValue(i);
+            cell->setValue(i);
             region.add(cell);
             Assert::That(region.GetFreeValues(), Is().Not().Containing(i));
         }
@@ -90,7 +90,7 @@ Describe(A_Region)
         for(int i=1;i<8;i++)
         {
             Cell* cell = new Cell(i,i);
-            cell->SetValue(i);
+            cell->setValue(i);
             region.add(cell);
         }
         Assert::That(region.hasValue(1) );

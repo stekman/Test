@@ -16,17 +16,17 @@ Describe(A_Cell)
 	It(HasCoordinates)
 	{
 		Cell cell(1,9);
-		Assert::That(cell.GetX(), Equals(1));
-		Assert::That(cell.GetY(), Equals(9));
+		Assert::That(cell.getX(), Equals(1));
+		Assert::That(cell.getY(), Equals(9));
 	}
 
 	It(HasAValue)
 	{
 		Cell cell(1,9);
-		Assert::That(cell.GetValue(), Equals(0));
+		Assert::That(cell.getValue(), Equals(0));
 
-		cell.SetValue(5);
-		Assert::That(cell.GetValue(), Equals(5));
+		cell.setValue(5);
+		Assert::That(cell.getValue(), Equals(5));
 	}
 
 	It(IsValidWhenItBelongsToThreeRegions)
@@ -46,12 +46,12 @@ Describe(A_Cell)
 		Cell* cell=new Cell(1,9);
 		Region region;
 		region.add(cell);
-		cell->SetValue(5);
+		cell->setValue(5);
 		Cell* cell2=new Cell(2,9);
 		region.add(cell2);
-		AssertThrows(std::logic_error, cell2->SetValue(5))
-		cell2->SetValue(4);
-		AssertThrows(std::logic_error, cell->SetValue(4));
+		AssertThrows(std::logic_error, cell2->setValue(5))
+		cell2->setValue(4);
+		AssertThrows(std::logic_error, cell->setValue(4));
 	}
 
 	It(KnowsPossibleValues)
@@ -63,13 +63,13 @@ Describe(A_Cell)
 		}
 		Cell* cell = new Cell(1,2);
 		r1.add(cell);
-		Assert::That(cell->GetFreeValues(), HasLength(6));
+		Assert::That(cell->getFreeValues(), HasLength(6));
 		for(int i = 6; i<10; i++)
 		{
 			r2.add(new Cell(i,i,i));
 		}
 		r2.add(cell);
-		Assert::That(cell->GetFreeValues(), HasLength(2));
+		Assert::That(cell->getFreeValues(), HasLength(2));
 	}
 
 	It(CanCheckIfItIsSolvable)
