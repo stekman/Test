@@ -79,9 +79,9 @@ Describe(A_Region)
             Cell* cell = new Cell(i,i);
             cell->setValue(i);
             region.add(cell);
-            Assert::That(region.GetFreeValues(), Is().Not().Containing(i));
+            Assert::That(region.getFreeValues(), Is().Not().Containing(i));
         }
-        Assert::That(region.GetFreeValues(), HasLength(2));
+        Assert::That(region.getFreeValues(), HasLength(2));
     }
 
     It(CanCheckIfItHasAValue)

@@ -73,11 +73,11 @@ list<int> Cell::getFreeValues() const
 	list<int> free;
 	auto region = regions.cbegin();
 	if(region!=regions.cend())
-		free = (*region)->GetFreeValues();
+		free = (*region)->getFreeValues();
 	region++;
 	for(; region != regions.cend(); region++)
 	{
-		list<int> freeInRegion = (*region)->GetFreeValues();
+		list<int> freeInRegion = (*region)->getFreeValues();
 		list<int> totalFree;
 		std::set_intersection(free.cbegin(), free.cend(), freeInRegion.cbegin(), freeInRegion.cend(), std::back_inserter(totalFree));
 		free = totalFree;

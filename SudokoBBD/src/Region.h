@@ -31,7 +31,7 @@ public:
     Cell* getCell(int x, int y) const;
     bool hasValue(int i) const;
     std::list<int> getValues() const;
-    std::list<int> GetFreeValues() const;
+    std::list<int> getFreeValues() const;
 	int getPosition() const;
 	Type getType() const;
 };

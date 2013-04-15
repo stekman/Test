@@ -34,7 +34,7 @@ Board& Board::add(Cell* cell) throw (std::overflow_error)
 	if(cells.size()>=9*9)
 		throw std::overflow_error("Too many cells");
 	cells.push_back(cell);
-	auto regionsForCell=GetRegions(cell->getX() ,cell->getY());
+	auto regionsForCell=getRegions(cell->getX() ,cell->getY());
 	for(auto region: regionsForCell)
 		region->add(cell);
 	return *this;
@@ -51,7 +51,7 @@ Board& Board::setup(int start[9][9])
 	return *this;
 }
 
-std::list<Region*> Board::GetRegions(int x, int y) const
+std::list<Region*> Board::getRegions(int x, int y) const
 {
 	std::list<Region*> selection;
 	for(auto region : regions)
@@ -70,7 +70,7 @@ std::list<Region*> Board::GetRegions(int x, int y) const
 	return selection;
 }
 
-std::list<Region*> Board::GetRegions() const
+std::list<Region*> Board::getRegions() const
 {
 	return regions;
 }
@@ -146,6 +146,7 @@ bool Board::solve()
 		if(!changed)
 			return false;
 	}
+	return false;
 }
 
 bool Board::isSolved() const
@@ -157,7 +158,7 @@ bool Board::isSolved() const
 	return true;
 }
 
-bool Board::operator ==(const Board other) const
+bool Board::operator ==(const Board& other) const
 {
 	bool result = true;
 	if(cells.size()==other.cells.size())

@@ -38,14 +38,14 @@ Describe(A_Board)
 	{
 		Board board;
 		board.setup();
-		Assert::That(board.GetRegions(), HasLength(3*9));
+		Assert::That(board.getRegions(), HasLength(3*9));
 	}
 
 	It(GetsRegionsFromCoordinates)
 	{
 		Board board;
 		board.setup();
-		list<Region*> regions=board.GetRegions(5,5);
+		list<Region*> regions=board.getRegions(5,5);
 		Assert::That(regions, HasLength(3));
 		int areaposition=0;
 		for(auto region: regions)

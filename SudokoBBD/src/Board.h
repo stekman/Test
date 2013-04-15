@@ -26,13 +26,13 @@ public:
 	Board& add(Region* region) throw (std::overflow_error);
 	Board& add(Cell* cell) throw (std::overflow_error);
 	Board& setup(int start[9][9]=nullptr);
-	std::list<Region*> GetRegions(int x, int y) const;
-	std::list<Region*> GetRegions() const;
+	std::list<Region*> getRegions(int x, int y) const;
+	std::list<Region*> getRegions() const;
 	Cell* getCell(int x, int y) const throw (std::logic_error) ;
 	bool solve();
 	bool isSolved() const;
 	bool isUnsolvable() const;
-	bool operator==(const Board other) const;
+	bool operator==(const Board& other) const;
 	explicit operator std::string() const;
 };
 

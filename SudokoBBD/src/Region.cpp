@@ -80,7 +80,7 @@ Region::Type Region::getType() const
 	return type;
 }
 
-std::list<int> Region::GetFreeValues() const
+std::list<int> Region::getFreeValues() const
 {
     std::list<int> free;
     for(int value=1; value<=9; value++)
