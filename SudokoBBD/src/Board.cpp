@@ -18,7 +18,10 @@ Board::Board()
 
 Board::~Board()
 {
-	// TODO Auto-generated destructor stub
+	for(auto region: regions)
+	{
+		delete region;
+	}
 }
 
 Board& Board::add(Region* region) throw (std::overflow_error)
