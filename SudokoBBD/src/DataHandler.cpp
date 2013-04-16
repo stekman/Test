@@ -42,7 +42,8 @@ void DataHandler::makeValid() const
 	setState(VALID);
 	for(auto subscription: subscriptions)
 	{
-		subscription->makeValid();
+		if(subscription->getState()==INVALID)
+			subscription->makeValid();
 	}
 }
 
