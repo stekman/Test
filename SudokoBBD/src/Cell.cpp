@@ -11,9 +11,8 @@
 #include <iostream>
 #include <sstream>
 
-Cell::Cell(int x, int y, int value): x(x), y(y)
+Cell::Cell(int x, int y, int value): x(x), y(y), value(value)
 {
-	setValue(value);
 }
 
 Cell::~Cell() {

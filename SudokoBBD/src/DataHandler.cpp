@@ -7,9 +7,8 @@
 
 #include "DataHandler.h"
 
-DataHandler::DataHandler()
+DataHandler::DataHandler(): state(INVALID)
 {
-	setState(INVALID);
 }
 
 DataHandler::State DataHandler::getState() const
@@ -24,7 +23,6 @@ void DataHandler::setState(State state) const
 
 DataHandler::~DataHandler()
 {
-	// TODO Auto-generated destructor stub
 }
 
 void DataHandler::onChange()
