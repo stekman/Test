@@ -10,7 +10,19 @@
 #include <exception>
 #include "Region.h"
 #include "Cell.h"
+
 using namespace igloo;
+
+int nbrDeletes=0;
+
+class TestCell: public Cell
+    	{
+    	public:
+			TestCell(int& x, int& y): Cell(x,y) {}
+    		~TestCell() { nbrDeletes++; }
+    		static void initNbrDeletes() { nbrDeletes=0;}
+    		static int getNbrDeletes() { return nbrDeletes;}
+    	};
 
 Describe(A_Region)
 {
@@ -102,5 +114,25 @@ Describe(A_Region)
     	Region region(Region::horizontal,1);
     	Assert::That(region.getType(), Equals(Region::horizontal));
     	Assert::That(region.getPosition(), Equals(1));
+    }
+
+
+    It(DeletesAbandonedCells)
+    {
+
+
+
+    	Region* region = new Region;
+    	Region* region2 = new Region;
+        for(int i=1;i<7;i++)
+        {
+            TestCell* cell = new TestCell(i,i);
+            region->add(cell);
+            region2->add(cell);
+        }
+        TestCell::initNbrDeletes();
+        delete region;
+        delete region2;
+        Assert::That(TestCell::getNbrDeletes(), Equals(6));
     }
 };
